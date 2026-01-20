@@ -13,7 +13,7 @@ function Navbar() {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand fs-3 me-5 text-decoration-none text-black">
-                    <strong className="ms-5">Ricettario Zampp</strong>
+                    <strong className="ms-5">Zampericettario</strong>
                 </Link>
                 <button
                     className="navbar-toggler"
