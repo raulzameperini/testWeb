@@ -39,8 +39,12 @@ function Navbar() {
                     </ul>
                     <span className="navbar-text">
                         <SearchBar
-                            onSearch={(query) => { console.log('search:', query); /* call API / navigate */ }}
-                            onFridgeSearch={(ings) => { console.log('fridge search:', ings); }}
+                            onSearch={(query) => {
+                                if ((window as any).handleSearch) (window as any).handleSearch(query);
+                            }}
+                            onFridgeSearch={(ings) => {
+                                if ((window as any).handleFridgeSearch) (window as any).handleFridgeSearch(ings);
+                            }}
                         />
                     </span>
                 </div>

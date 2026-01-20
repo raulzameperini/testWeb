@@ -12,6 +12,7 @@ const client = axios.create({
 export const api = {
   // Implementa "Our Search Process" 
   searchRecipes: async (query: string): Promise<RecipeSummary[]> => {
+    console.log("chiave api"+API_KEY);
     const response = await client.get('/complexSearch', {
       params: {
         query,
@@ -31,7 +32,13 @@ export const api = {
         ranking: 1, // Prioritizza l'uso degli ingredienti che hai
       },
     });
-    return response.data;
+    // Normalizza i dati per avere almeno id, title, image, imageType
+    return response.data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      image: item.image,
+      imageType: item.image?.split('.').pop() || '', // fallback se manca
+    }));
   },
 
   // Ottiene info nutrizionali  e costi 
