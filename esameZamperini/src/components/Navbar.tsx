@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SearchBar } from "./pages/SearchBar";
 
 function Navbar() {
     // Array di configurazione per le pagine
@@ -37,9 +38,10 @@ function Navbar() {
                         ))}
                     </ul>
                     <span className="navbar-text">
-                        <Link to="/Login" className="text-decoration-none text-black">
-                            Accedi
-                        </Link>
+                        <SearchBar
+                            onSearch={(query) => { console.log('search:', query); /* call API / navigate */ }}
+                            onFridgeSearch={(ings) => { console.log('fridge search:', ings); }}
+                        />
                     </span>
                 </div>
             </div>
