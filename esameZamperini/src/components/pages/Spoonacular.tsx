@@ -22,7 +22,7 @@ export interface RecipeSummary {
     name: string;
     amount: number;
     unit: string;
-    original: string; // Es: "1 cup oats" [cite: 61]
+    original: string; // Es: "1 cup oats" 
   }
   
   export interface Nutrition {
@@ -33,5 +33,5 @@ export interface RecipeSummary {
     name: string;
     amount: number;
     unit: string;
-    percentOfDailyNeeds: number; // Es: Calories 16% [cite: 74]
+    percentOfDailyNeeds: number; // Es: Calories 16% 
   }

@@ -6,8 +6,6 @@ function Navbar() {
     const pages = [
         { name: "Home", path: "/" },
         { name: "Login", path: "/Login" },
-        { name: "Chi Siamo", path: "/about" },
-        { name: "Contatti", path: "/contact" }
     ];
 
     return (
