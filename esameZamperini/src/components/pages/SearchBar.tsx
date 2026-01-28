@@ -11,45 +11,61 @@ export const SearchBar: React.FC<Props> = ({ onSearch, onFridgeSearch }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (mode === 'standard') {
-      onSearch(input);
-    } else {
-      onFridgeSearch(input);
+    if (input.trim()) {
+      if (mode === 'standard') {
+        onSearch(input);
+      } else {
+        onFridgeSearch(input);
+      }
+      setInput('');
     }
   };
 
   return (
-    <div style={{ padding: '20px', background: '#f8f9fa', borderRadius: '8px' }}>
-      <div style={{ marginBottom: '10px' }}>
-        <label style={{ marginRight: '15px' }}>
+    <div className="bg-light rounded-3 p-3" style={{ minWidth: '400px' }}>
+      <div className="mb-3">
+        <div className="form-check form-check-inline">
           <input 
+            className="form-check-input"
             type="radio" 
+            id="search-standard"
+            name="searchMode"
             checked={mode === 'standard'} 
             onChange={() => setMode('standard')} 
           /> 
-          Ricerca Classica (es. "Gluten free muffins") 
-        </label>
-        <label>
+          <label className="form-check-label" htmlFor="search-standard" style={{ fontFamily: 'Segoe UI, sans-serif' }}>
+            🔍 Ricerca Classica
+          </label>
+        </div>
+        <div className="form-check form-check-inline">
           <input 
-            type="radio" 
+            className="form-check-input"
+            type="radio"
+            id="search-fridge" 
+            name="searchMode"
             checked={mode === 'fridge'} 
             onChange={() => setMode('fridge')} 
           /> 
-          Svuota Frigo (es. "apples, flour, sugar") 
-        </label>
+          <label className="form-check-label" htmlFor="search-fridge" style={{ fontFamily: 'Segoe UI, sans-serif' }}>
+            🧊 Svuota Frigo
+          </label>
+        </div>
       </div>
       
-      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px' }}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'standard' ? "Cerca ricetta..." : "Inserisci ingredienti separati da virgola"}
-          style={{ flex: 1, padding: '8px' }}
-        />
-        <button type="submit" style={{ padding: '8px 16px', background: '#28a745', color: '#fff', border: 'none' }}>
-          Cerca
-        </button>
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={mode === 'standard' ? "Es. Gluten free muffins..." : "Es. apples, flour, sugar..."}
+            style={{ fontFamily: 'Segoe UI, sans-serif' }}
+          />
+          <button className="btn btn-success" type="submit" style={{ fontFamily: 'Segoe UI, sans-serif' }}>
+            🔎 Cerca
+          </button>
+        </div>
       </form>
     </div>
   );
