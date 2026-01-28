@@ -9,19 +9,20 @@ function Navbar() {
     ];
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg shadow-sm" style={{ backgroundColor: '#2d5016' }}>
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand fs-3 me-5 text-decoration-none text-black">
-                    <strong className="ms-5">Zampericettario</strong>
+                <Link to="/" className="navbar-brand fs-2 me-5 text-decoration-none text-white fw-bold" style={{ fontFamily: 'Georgia, serif', letterSpacing: '1px' }}>
+                    🍽️ Zampericettario
                 </Link>
                 <button
-                    className="navbar-toggler"
+                    className="navbar-toggler border-0"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarText"
                     aria-controls="navbarText"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
+                    style={{ filter: 'invert(1)' }}
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -29,7 +30,7 @@ function Navbar() {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-5 fs-5 gap-4">
                         {pages.map((page, index) => (
                             <li key={index} className="nav-item">
-                                <Link to={page.path} className="text-decoration-none text-black">
+                                <Link to={page.path} className="text-decoration-none text-white fw-semibold" style={{ transition: 'color 0.3s', fontSize: '1.1rem', fontFamily: 'Segoe UI, sans-serif' }}>
                                     {page.name}
                                 </Link>
                             </li>
