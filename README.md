@@ -1,18 +1,11 @@
-# [Zampericettario]
+# Zampericettario
 
-Un'applicazione web realizzata con **React** che si interfaccia con spoonacular che usa un ricerca semantica per trovare delle ricette.
+Un'applicazione web realizzata con **React + Vite** che usa l'API di Spoonacular per cercare e visualizzare ricette, trovare ricette a partire dagli ingredienti disponibili e salva nei i preferiti.
 
-## Descrizione e Scopo del Progetto
+## Descrizione e scopo del progetto
 
-Lo scopo del progetto è semplificare la gestione dell'alimentazione quotidiana fornendo strumenti avanzati di ricerca e analisi alimentare. A differenza di un semplice ricettario, l'app utilizza la "Semantic Search" per comprendere query complesse (come intolleranze o esclusioni specifiche) e offre funzionalità di "Smart Kitchen".
+Lo scopo del progetto è semplificare la ricerca e la gestione delle ricette quotidiane offrendo funzionalità utili in cucina: ricerca libera (semantica ), ricerca per ingredienti ("What's in my fridge?"), visualizzazione dettagliata con informazioni nutrizionali e una lista di preferiti.
 
-L'applicazione permette agli utenti di:
-**Cercare ricette** filtrando per dieta (es. Gluten Free, Vegan, Paleo) e intolleranze.
-**Trovare idee in base agli ingredienti disponibili** C'è la funzionalità "What's in my fridge?" per ridurre gli sprechi e creare ricette con gli ingredienti che si ha.
-**Visualizzare dettagli approfonditi**, inclusi i costi per ingrediente e i valori nutrizionali completi.
-**Pianificare i pasti** con strumenti di generazione menu giornalieri o settimanali.
-**Ingredient Visualisation:** Mostra immagini degli ingredienti e degli strumenti necessari per ogni step della preparazione
-**Autocomplete:** Suggerimenti intelligenti durante la digitazione degli ingredienti.
 
 
 ## Istruzioni per Installazione ed Esecuzione
@@ -39,4 +32,44 @@ L'applicazione permette agli utenti di:
     Creazione file api.env dove ho messo la chiave api:
     VITE_SPOONACULAR_API_KEY = chiave
 
+## Descrizione dell'API utilizzata
 
+L'app usa l'API Spoonacular (https://spoonacular.com/food-api).
+
+Endpoint principali usati nel progetto:
+- `GET /complexSearch` — ricerca ricette per query testuale (usato in `api.searchRecipes`).
+- `GET /findByIngredients` — trova ricette fornendo una lista di ingredienti (usato in `api.findByIngredients`).
+- `GET /{id}/information` — ottiene i dettagli completi di una ricetta, inclusa la nutrizione (usato in `api.getRecipeDetail`).
+- `POST /favorites` — chiamata presente nel client (`api.saveFavoriteRecipe`), non funziona del tutto.
+
+
+## Eventuali credenziali / mock
+
+- Imposta la variabile `VITE_SPOONACULAR_API_KEY` nel file `.env` (cartella `esameZamperini`).
+- l'app salva i preferiti su `localStorage` . 
+
+## Struttura del progetto (parti principali)
+
+- `esameZamperini/`
+  - `index.html` 
+  - `src/` 
+    - `main.tsx` 
+    - `App.tsx` – router e layout globale
+    - `App.css`, `index.css` 
+    - `components/`
+      - `Navbar.tsx`, `Footer.tsx` – elementi UI comuni
+      - `pages/`
+        - `Home.tsx` – pagina principale (ricerca, griglia, dettagli, preferiti)
+        - `Favorites.tsx` – pagina che mostra i preferiti (legge da `localStorage`)
+        - `SearchBar.tsx`, `Login.tsx`, `Notfound.tsx` – altre pagine/componenti
+      - `service/`
+        - `api.tsx` – wrapper axios per chiamate a Spoonacular e funzioni utili
+
+## Elenco funzionalità completate
+
+- Ricerca ricette per nome/keyword (`searchRecipes`).
+- Ricerca ricette per ingredienti (`findByIngredients`, "What's in my fridge").
+- Visualizzazione dettagli ricetta con nutrizione e ingredienti (`getRecipeDetail`).
+- Salvataggio preferiti lato client (`localStorage`) e pagina `Preferiti` per visualizzarli.
+- Interfaccia responsive con card delle ricette, navbar e routing (`react-router-dom`).
+- Componente `SearchBar` che invoca le ricerche nella `Home`.
