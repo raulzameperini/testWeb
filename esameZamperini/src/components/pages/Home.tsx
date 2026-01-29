@@ -9,9 +9,18 @@ function Home() {
     const [selectedRecipeId, setSelectedRecipeId] = useState<number | null>(null);
     const [recipeDetail, setRecipeDetail] = useState<RecipeDetail | null>(null);
     const [detailLoading, setDetailLoading] = useState(false);
-    const [favorites, setFavorites] = useState<number[]>([]);
+    const [favorites, setFavorites] = useState<number[]>(() => {
+        try {
+            const raw = localStorage.getItem('favorites');
+            return raw ? JSON.parse(raw) : [];
+        } catch {
+            return [];
+        }
+    });
 
-    // Funzione ricerca ricette per nome
+
+    //cerca ricette per nome usando `api.searchRecipes`.
+    
     (window as any).handleSearch = async (query: string) => {
         setLoading(true); 
         setError(null);
@@ -26,7 +35,10 @@ function Home() {
         }
     };
 
-    // Funzione ricerca ricette per ingredienti
+   
+    // Descrizione: cerca ricette a partire da una lista di ingredienti usando `api.findByIngredients`.
+    //  ings (string) - stringa con ingredienti separati da virgola.
+  
     (window as any).handleFridgeSearch = async (ings: string) => {
         setLoading(true); 
         setError(null);
@@ -42,7 +54,10 @@ function Home() {
         }
     };
 
-    // Funzione per visualizzare dettagli ricetta
+
+    // Descrizione: carica e mostra i dettagli completi di una ricetta tramite `api.getRecipeDetail`.
+    // - salva il risultato in `recipeDetail` e setta `selectedRecipeId`
+   
     const handleViewRecipe = async (recipeId: number) => {
         setDetailLoading(true);
         setError(null);
@@ -58,14 +73,18 @@ function Home() {
         }
     };
 
-    // Funzione per aggiungere ai preferiti
+    
+    // salva localmente l'id della ricetta nei preferiti e tenta di sincronizzare col backend.
+    // - aggiorna subito lo stato `favorites` e `localStorage` per rendere reattiva l'interfaccia
     const handleAddFavorite = async (recipeId: number) => {
-        try {
-            const userId = 'user_' + new Date().getTime(); // Simple user ID
-            await api.saveFavoriteRecipe(recipeId, userId);
-            setFavorites([...favorites, recipeId]);
-        } catch (e) {
-            setError('Errore nel salvataggio preferito');
+        if (!favorites.includes(recipeId)) {
+            const next = [...favorites, recipeId];
+            setFavorites(next);
+            localStorage.setItem('favorites', JSON.stringify(next));
+            const userId = 'user_' + new Date().getTime();
+            api.saveFavoriteRecipe(recipeId, userId).catch(err => {
+                console.warn('Save favorite remote failed:', err?.message || err);
+            });
         }
     };
 

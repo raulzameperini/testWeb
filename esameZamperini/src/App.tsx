@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/pages/Home'
+import Favorites from './components/pages/Favorites'
 import Login from './components/pages/Login'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -14,6 +15,7 @@ function App() {
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/Login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -5,6 +5,7 @@ function Navbar() {
     // Array di configurazione per le pagine
     const pages = [
         { name: "Home", path: "/" },
+        { name: "Preferiti", path: "/favorites" },
         { name: "Login", path: "/Login" },
     ];
 
